@@ -1,13 +1,14 @@
 package com.nav.billing.appbillingv1.commons;
 
+//APIs
 public class GlobalConstants {
 
-  //APIs
-  public static final String CUSTOMER_API="/v1/customer";
-  public static final String API_CATEGORIA="/v1/categorias";
+  // Administration API's
+  public static final String CUSTOMER_API = "/v1/customer";
+  public static final String ARTICLE_API = "/v1/article";
 
-  public static final String API_CLIENTE="/v1/clientes";
-  public static final String API_PEDIDO="/v1/pedidos";
+  // Process API's
+  public static final String ORDER_API = "/v1/order";
 
 
 }

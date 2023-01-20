@@ -1,4 +1,4 @@
-package com.nav.billing.appbillingv1.service.domain;
+package com.nav.billing.appbillingv1.service.domain.customer;
 
 import com.nav.billing.appbillingv1.entities.domain.Customer;
 import com.nav.billing.appbillingv1.service.exception.ServiceException;
