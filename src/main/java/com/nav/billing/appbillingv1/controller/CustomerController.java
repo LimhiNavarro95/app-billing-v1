@@ -65,11 +65,11 @@ public class CustomerController {
     try {
       Customer customer = new Customer();
       customer.setBusinessName(businessName);
-      List<Customer> clientes = customerService.findByLikeObject(customer);
-      if (clientes.isEmpty()) {
+      List<Customer> customers = customerService.findByLikeObject(customer);
+      if (customers.isEmpty()) {
         return ResponseEntity.noContent().build();
       }
-      return ResponseEntity.ok(clientes);
+      return ResponseEntity.ok(customers);
     } catch (Exception e) {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();
