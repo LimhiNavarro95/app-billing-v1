@@ -32,7 +32,7 @@ public class ArticleServiceImpl implements ArticleService{
   @Override
   public Optional<Article> findById(Long id) throws ServiceException {
     try{
-      return articleRepository.findById(id);
+      return articleRepository.findArticleById(id);
     } catch (Exception e) {
       throw new ServiceException(e);
     }

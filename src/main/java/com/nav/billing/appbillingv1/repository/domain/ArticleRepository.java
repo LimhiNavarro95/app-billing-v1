@@ -9,9 +9,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+
+  @Query("select art from Article art where art.articleId = :articleId and art.status = '1'")
+  Optional<Article> findArticleById(@Param("articleId") Long articleId);
 
   @Query("select art from Article art where upper(art.trademark) like upper(:trademark) and art.status = '1'")
   List<Article> findByLikeTrademark(@Param("trademark") String trademark);

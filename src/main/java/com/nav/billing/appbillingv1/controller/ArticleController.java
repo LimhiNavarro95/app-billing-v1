@@ -40,24 +40,6 @@ public class ArticleController {
 
   }
 
-  /*@GetMapping("/by-trademark")
-  public ResponseEntity<?> findByLike(@RequestParam String trademark){
-    try {
-      Article article = new Article();
-      article.setTrademark(trademark);
-
-      List<Article> articles = articleService.findByLikeObject(article);
-
-      if (articles.isEmpty()) {
-        return ResponseEntity.noContent().build();
-      }
-      return ResponseEntity.ok(articles);
-    } catch (Exception e) {
-      log.error(e.getMessage(),e);
-      return ResponseEntity.internalServerError().build();
-    }
-  }*/
-
   @GetMapping("/by-trademark")
   public ResponseEntity<?> findByLikeTrademarkPaged(@RequestParam String trademark,
                                                     @RequestParam Integer page, /*No. de pagina, ej: Pag.1, 2, ...5 */
