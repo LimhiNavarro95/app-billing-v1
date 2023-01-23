@@ -14,11 +14,18 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
+  // -- Simple querys
+
   @Query("select art from Article art where art.articleId = :articleId and art.status = '1'")
   Optional<Article> findArticleById(@Param("articleId") Long articleId);
 
   @Query("select art from Article art where upper(art.trademark) like upper(:trademark) and art.status = '1'")
   List<Article> findByLikeTrademark(@Param("trademark") String trademark);
+
+  // -- SERVICIOS CON PAGINACION
+
+  @Query("select art from Article art where art.status = '1' order by art.articleId")
+  Page<Article> findAllArticles(Pageable pageable);
 
   // Obtiene articulos por marca con paginacion
   @Query("select art from Article art where upper(art.trademark) like upper(:trademark) and art.status = '1'")

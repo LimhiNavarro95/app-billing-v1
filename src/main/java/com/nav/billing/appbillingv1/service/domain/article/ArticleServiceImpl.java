@@ -54,6 +54,15 @@ public class ArticleServiceImpl implements ArticleService{
   }
 
   @Override
+  public Page<Article> findAllArticlesPaging(Pageable pageable) throws ServiceException {
+    try {
+      return articleRepository.findAllArticles(pageable);
+    } catch (Exception e){
+      throw new ServiceException(e);
+    }
+  }
+
+  @Override
   public Page<Article> findByLikeTrademarkPaging(String trademark, Pageable pageable) throws ServiceException {
     try{
       return articleRepository.findByLikeTrademarkPaging(trademark, pageable);

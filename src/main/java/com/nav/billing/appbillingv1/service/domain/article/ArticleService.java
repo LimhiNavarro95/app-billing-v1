@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface ArticleService extends GenericService<Article> {
 
+  Page<Article> findAllArticlesPaging(Pageable pageable) throws ServiceException;
+
   Page<Article> findByLikeTrademarkPaging(String trademark, Pageable pageable) throws ServiceException;
 
 }

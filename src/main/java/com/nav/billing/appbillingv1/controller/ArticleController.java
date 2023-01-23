@@ -40,14 +40,32 @@ public class ArticleController {
 
   }
 
+  @GetMapping("/all-articles")
+  public ResponseEntity<?> findAllArticlesPaged(@RequestParam Integer page, @RequestParam Integer size){
+    try {
+
+      Pageable pageable = PageRequest.of(page -1, size);
+      Page<Article> articles = articleService.findAllArticlesPaging(pageable);
+
+      if (articles.isEmpty()) {
+        return ResponseEntity.noContent().build();
+      }
+      return ResponseEntity.ok(articles.getContent());
+
+    } catch (Exception e) {
+      log.error(e.getMessage(),e);
+      return ResponseEntity.internalServerError().build();
+    }
+
+  }
+
   @GetMapping("/by-trademark")
   public ResponseEntity<?> findByLikeTrademarkPaged(@RequestParam String trademark,
                                                     @RequestParam Integer page, /*No. de pagina, ej: Pag.1, 2, ...5 */
                                                     @RequestParam Integer size /*De cuanto en cuanto, ej: 10,20,50 */){
     try {
 
-      Pageable pageable = PageRequest.of(page -1 , size);
-
+      Pageable pageable = PageRequest.of(page -1, size);
       Page<Article> articles = articleService.findByLikeTrademarkPaging(trademark, pageable);
 
       if (articles.isEmpty()) {
@@ -59,6 +77,7 @@ public class ArticleController {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();
     }
+
   }
 
 }
