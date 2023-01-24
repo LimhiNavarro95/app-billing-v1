@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 @Table(name = "ARTICLE")
 @Entity(name = "Article")
@@ -12,27 +13,29 @@ public class Article {
   @Id
   @Column(name = "ID_ARTICLE")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqArticle")
-  @SequenceGenerator(sequenceName = "ID_ARTICLE", allocationSize = 1, name = "seqArticle")
+  @SequenceGenerator(sequenceName = "SEQ_ARTICLE", allocationSize = 1, name = "seqArticle")
   private Long articleId;
 
   @NotNull(message = "La marca del producto es requerida")
+  @Size(min = 5, max = 32, message = "La marca debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "TRADEMARK", length = 32, nullable = false)
   private String trademark;
 
   @NotNull(message = "La descripcion del producto es requerida")
+  @Size(min = 5, max = 128, message = "La descripcion debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "DESCRIPTION", length = 128, nullable = false)
   private String description;
 
   @NotNull(message = "El precio del producto es requerido")
   @Column(name = "PRICE")
   @Positive(message = "El precio debe ser un numero positivo")
-  @Min(1)
+  @Min(value = 1, message = "El precio debe ser mayor o igual a {value}")
   private Double price;
 
   @NotNull(message = "El stock del producto es requerido")
   @Column(name = "STOCK")
-  @Positive(message = "El precio debe ser un numero positivo")
-  @Min(1)
+  @Positive(message = "El stock debe ser un numero positivo")
+  @Min(value = 1, message = "El stock debe ser mayor o igual a {value}")
   private Double stock;
 
   @Column(name = "STATUS", length = 1, nullable = false)
