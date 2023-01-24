@@ -1,7 +1,7 @@
 package com.nav.billing.appbillingv1.controller;
 
 import com.nav.billing.appbillingv1.entities.domain.Customer;
-import com.nav.billing.appbillingv1.service.domain.CustomerService;
+import com.nav.billing.appbillingv1.service.domain.customer.CustomerService;
 import com.nav.billing.appbillingv1.util.WebUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class CustomerController {
       if (optionalCustomer.isEmpty()) {
         return ResponseEntity.noContent().build();
       }
-      return  ResponseEntity.ok(optionalCustomer.get());
+      return ResponseEntity.ok(optionalCustomer.get());
     } catch (Exception e) {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();
@@ -65,11 +65,11 @@ public class CustomerController {
     try {
       Customer customer = new Customer();
       customer.setBusinessName(businessName);
-      List<Customer> clientes = customerService.findByLikeObject(customer);
-      if (clientes.isEmpty()) {
+      List<Customer> customers = customerService.findByLikeObject(customer);
+      if (customers.isEmpty()) {
         return ResponseEntity.noContent().build();
       }
-      return  ResponseEntity.ok(clientes);
+      return ResponseEntity.ok(customers);
     } catch (Exception e) {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();
