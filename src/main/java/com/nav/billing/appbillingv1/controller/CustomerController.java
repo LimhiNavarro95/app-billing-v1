@@ -4,6 +4,9 @@ import com.nav.billing.appbillingv1.entities.domain.Customer;
 import com.nav.billing.appbillingv1.service.domain.customer.CustomerService;
 import com.nav.billing.appbillingv1.util.WebUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -70,6 +73,27 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
       }
       return ResponseEntity.ok(customers);
+    } catch (Exception e) {
+      log.error(e.getMessage(),e);
+      return ResponseEntity.internalServerError().build();
+    }
+
+  }
+
+  @GetMapping("/all-customers")
+  public ResponseEntity<?> findAllCustomersPaged(@RequestParam Integer page, @RequestParam Integer size){
+
+    try {
+
+      Pageable pageable = PageRequest.of(page -1, size);
+      Page<Customer> customers = customerService.findAllCustomersPaging(pageable);
+
+      if (customers.isEmpty()){
+        return ResponseEntity.noContent().build();
+      } else {
+        return ResponseEntity.ok(customers.getContent());
+      }
+
     } catch (Exception e) {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();

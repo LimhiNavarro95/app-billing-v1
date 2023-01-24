@@ -6,6 +6,8 @@ import com.nav.billing.appbillingv1.service.exception.ServiceException;
 import com.nav.billing.appbillingv1.util.BDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -35,6 +37,15 @@ public class CustomerServiceImpl implements CustomerService{
   }
 
   @Override
+  public Page<Customer> findAllCustomersPaging(Pageable pageable) throws ServiceException {
+    try {
+      return customerRepository.findAllCustomers(pageable);
+    } catch (Exception e) {
+      throw new ServiceException(e);
+    }
+  }
+
+  @Override
   public List<Customer> findByLikeObject(Customer customer) throws ServiceException {
     try{
       return customerRepository.findByLikeBusinessName(BDUtil.getLike(customer.getBusinessName()));
@@ -46,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService{
   @Override
   public Optional<Customer> findById(Long id) throws ServiceException {
     try{
-      return customerRepository.findById(id);
+      return customerRepository.findCustomerById(id);
     } catch (Exception e){
       throw new ServiceException(e);
     }
