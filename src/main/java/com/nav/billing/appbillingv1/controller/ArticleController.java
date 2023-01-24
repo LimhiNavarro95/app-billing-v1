@@ -20,7 +20,7 @@ import static java.util.Objects.isNull;
 
 @RestController
 @Slf4j
-@RequestMapping(ARTICLE_API)
+@RequestMapping(ARTICLE_API)  // uri -> /v1/article
 public class ArticleController {
 
   private final ArticleService articleService;
