@@ -19,6 +19,11 @@ VALUES (SEQ_CUSTOMER.NEXTVAL, 'Limhi', 'Navarro', 'Aviles', 'Limhi SA de CV', '5
 
 SELECT * FROM CUSTOMER;
 
+ALTER TABLE CUSTOMER DROP COLUMN SECOND_NAME;
+ALTER TABLE CUSTOMER DROP COLUMN BUSINESS_NAME;
+
+ALTER TABLE CUSTOMER RENAME COLUMN FIRST_NAME TO LAST_NAME;
+
 -- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 CREATE TABLE ARTICLE(

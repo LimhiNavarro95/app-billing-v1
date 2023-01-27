@@ -62,7 +62,7 @@ public class CustomerController {
 
   }
 
-  @GetMapping("/by-businessName")
+  /*@GetMapping("/by-businessName")
   public ResponseEntity<?> findByLikeRazonSocial(@RequestParam String businessName){
 
     try {
@@ -78,7 +78,7 @@ public class CustomerController {
       return ResponseEntity.internalServerError().build();
     }
 
-  }
+  }*/
 
   @GetMapping("/all-customers")
   public ResponseEntity<?> findAllCustomersPaged(@RequestParam Integer page, @RequestParam Integer size){

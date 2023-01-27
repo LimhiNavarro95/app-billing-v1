@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,8 +19,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
   @Query("select c from Customer c where c.customerId = :customerId and c.status = '1'")
   Optional<Customer> findCustomerById(@Param("customerId") Long customerId);
 
-  @Query("select c from Customer c where upper(c.businessName) like upper(:businessName) and c.status='1'")
-  List<Customer> findByLikeBusinessName(@Param("businessName") String businessName);
+  /*@Query("select c from Customer c where upper(c.businessName) like upper(:businessName) and c.status='1'")
+  List<Customer> findByLikeBusinessName(@Param("businessName") String businessName);*/
 
   @Query("select c from Customer c where c.rfc = :rfc and c.status = '1'")
   Optional<Customer> findCustomerByRfc(@Param("rfc") String rfc);

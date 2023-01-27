@@ -17,14 +17,14 @@ public class Customer {
   @NotNull(message = "El nombre del cliente es requerido")
   @Size(min = 5, max = 64, message = "El nombre debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "NAME", length = 64, nullable=false)
-  private String customerName;
+  private String name;
 
-  @NotNull(message = "El apellido paterno del cliente es requerido")
-  @Size(min = 5, max = 64, message="El apellido paterno debe tener como mínimo {min} y máximo {max} caracteres")
-  @Column(name = "FIRST_NAME", length = 64, nullable=false)
-  private String customerFirstName;
+  @NotNull(message = "El apellido del cliente es requerido")
+  @Size(min = 5, max = 64, message="El apellido debe tener como mínimo {min} y máximo {max} caracteres")
+  @Column(name = "LAST_NAME", length = 64, nullable=false)
+  private String lastName;
 
-  @NotNull(message = "El apellido materno del cliente es requerido")
+  /*@NotNull(message = "El apellido materno del cliente es requerido")
   @Size(min = 5, max = 64, message="El apellido materno debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "SECOND_NAME", length = 64, nullable=false)
   private String customerSecondName;
@@ -32,7 +32,7 @@ public class Customer {
   @NotNull(message = "La razon social del cliente es requerido")
   @Size(min = 5, max = 64, message="La razon social debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "BUSINESS_NAME", length = 64, nullable=false)
-  private String businessName; //razon social
+  private String businessName; //razon social*/
 
   @NotNull(message = "El telefono del cliente es requerido")
   @Size(min = 5, max = 32, message="El telefono debe tener como mínimo {min} y máximo {max} caracteres")
@@ -52,12 +52,10 @@ public class Customer {
   @Column(name = "STATUS", length = 1, nullable = false)
   private String status;
 
-  public Customer(Long customerId, String customerName, String customerFirstName, String customerSecondName, String businessName, String customerPhone, String customerAddress, String rfc, String status) {
+  public Customer(Long customerId, String name, String lastName, String customerPhone, String customerAddress, String rfc, String status) {
     this.customerId = customerId;
-    this.customerName = customerName;
-    this.customerFirstName = customerFirstName;
-    this.customerSecondName = customerSecondName;
-    this.businessName = businessName;
+    this.name = name;
+    this.lastName = lastName;
     this.customerPhone = customerPhone;
     this.customerAddress = customerAddress;
     this.rfc = rfc;
@@ -75,36 +73,20 @@ public class Customer {
     this.customerId = customerId;
   }
 
-  public String getCustomerName() {
-    return customerName;
+  public String getName() {
+    return name;
   }
 
-  public void setCustomerName(String customerName) {
-    this.customerName = customerName;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getCustomerFirstName() {
-    return customerFirstName;
+  public String getLastName() {
+    return lastName;
   }
 
-  public void setCustomerFirstName(String customerFirstName) {
-    this.customerFirstName = customerFirstName;
-  }
-
-  public String getCustomerSecondName() {
-    return customerSecondName;
-  }
-
-  public void setCustomerSecondName(String customerSecondName) {
-    this.customerSecondName = customerSecondName;
-  }
-
-  public String getBusinessName() {
-    return businessName;
-  }
-
-  public void setBusinessName(String businessName) {
-    this.businessName = businessName;
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getCustomerPhone() {
@@ -143,10 +125,8 @@ public class Customer {
   public String toString() {
     return "Customer{" +
         "customerId=" + customerId +
-        ", customerName='" + customerName + '\'' +
-        ", customerFirstName='" + customerFirstName + '\'' +
-        ", customerSecondName='" + customerSecondName + '\'' +
-        ", businessName='" + businessName + '\'' +
+        ", name='" + name + '\'' +
+        ", lastName='" + lastName + '\'' +
         ", customerPhone='" + customerPhone + '\'' +
         ", customerAddress='" + customerAddress + '\'' +
         ", rfc='" + rfc + '\'' +

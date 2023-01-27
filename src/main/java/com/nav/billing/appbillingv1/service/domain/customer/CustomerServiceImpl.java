@@ -47,11 +47,12 @@ public class CustomerServiceImpl implements CustomerService{
 
   @Override
   public List<Customer> findByLikeObject(Customer customer) throws ServiceException {
-    try{
+    return null;
+    /*try{
       return customerRepository.findByLikeBusinessName(BDUtil.getLike(customer.getBusinessName()));
     } catch (Exception e){
       throw new ServiceException(e);
-    }
+    }*/
   }
 
   @Override
