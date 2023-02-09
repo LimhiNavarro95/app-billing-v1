@@ -51,6 +51,9 @@ public class ArticleController {
     try {
 
       Pageable pageable = PageRequest.of(page -1, size);
+
+      //-> Este objeto tiene toda la info para saber cuantas paginas tengo y cuantos registros en total se obtienen
+      //   para armar toda la info que necesite
       Page<Article> articles = articleService.findAllArticlesPaging(pageable);
 
       if (articles.isEmpty()) {
