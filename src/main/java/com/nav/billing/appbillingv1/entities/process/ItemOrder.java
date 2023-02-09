@@ -10,15 +10,26 @@ import javax.validation.constraints.Positive;
 import static java.util.Objects.isNull;
 
 // pedido detalle
-@Table(name = "ITEM_ORDER")
+@Table(name = "ORDERS_DETAIL")
 @Entity(name = "ItemOrder")
 public class ItemOrder {
 
   @Id
-  @Column(name = "ID_ITEM_ORDER")
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqItemOrder")
-  @SequenceGenerator(sequenceName = "SEQ_ITEM_ORDER", allocationSize = 1, name = "seqItemOrder")
+  @Column(name = "ID_ORDER_DETAIL")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqOrdersDetail")
+  @SequenceGenerator(sequenceName = "SEQ_ORDERS_DETAIL", allocationSize = 1, name = "seqOrdersDetail")
   private Long itemOrderId;
+
+  // Campo que se relaciona con Order
+  //@JsonBackReference
+  @JsonIgnore // Para evitar redundancias infinitas
+  @ManyToOne
+  @JoinColumn(name = "ID_ORDER", nullable = false)
+  private Order order;
+
+  @ManyToOne
+  @JoinColumn(name = "ID_ARTICLE", nullable = false)
+  private Article article;
 
   @Column(name = "PRICE")
   @Positive(message = "El precio debe ser un numero positivo")
@@ -28,24 +39,26 @@ public class ItemOrder {
   @Column(name = "QUANTITY")
   private Double quantity; //cantidad
 
-  @Column(name = "TOTAL")
+  @Column(name = "SUB_TOTAL")
   @Positive(message = "El total debe ser un numero positivo")
   @Min(value = 1, message = "El total debe ser mayor o igual a {value}")
-  private Double total;
+  private Double subTotal;
 
   @Column(name = "STATUS", length = 1, nullable = false)
   private String status;
 
-  @ManyToOne
-  @JoinColumn(name = "ID_ARTICLE", nullable = false)
-  private Article article;
+  public ItemOrder(Long itemOrderId, Article article, Order order, Double price, Double quantity, Double subTotal, String status) {
+    this.itemOrderId = itemOrderId;
+    this.article = article;
+    this.order = order;
+    this.price = price;
+    this.quantity = quantity;
+    this.subTotal = subTotal;
+    this.status = status;
+  }
 
-  // Campo que se relaciona con Order
-  //@JsonBackReference
-  @JsonIgnore // Para evitar redundancias infinitas
-  @ManyToOne
-  @JoinColumn(name = "ID_ORDER", nullable = false)
-  private Order order;
+  public ItemOrder() {
+  }
 
   //-este metodo puede ir en la capa de servicio como "Business logic"
   public void calculateSubTotal(){
@@ -58,7 +71,7 @@ public class ItemOrder {
       price = 0.0;
     }
 
-    setTotal(quantity * price);
+    setSubTotal(quantity * price);
 
   }
 
@@ -86,12 +99,12 @@ public class ItemOrder {
     this.quantity = quantity;
   }
 
-  public Double getTotal() {
-    return total;
+  public Double getSubTotal() {
+    return subTotal;
   }
 
-  public void setTotal(Double total) {
-    this.total = total;
+  public void setSubTotal(Double subTotal) {
+    this.subTotal = subTotal;
   }
 
   public String getStatus() {
@@ -122,12 +135,12 @@ public class ItemOrder {
   public String toString() {
     return "ItemOrder{" +
         "itemOrderId=" + itemOrderId +
-        ", price=" + price +
-        ", quantity=" + quantity +
-        ", total=" + total +
-        ", status='" + status + '\'' +
         ", article=" + article +
         ", order=" + order +
+        ", price=" + price +
+        ", quantity=" + quantity +
+        ", subTotal=" + subTotal +
+        ", status='" + status + '\'' +
         '}';
   }
 

@@ -36,4 +36,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
   @Query(nativeQuery = true, value = "UPDATE ARTICLE SET status = '0' WHERE ID_ARTICLE = :id")
   void delete(@Param("id") Long id);
 
+  //-Se actualiza el stock restando los articulos que se estan vendiendo
+  @Modifying
+  @Query(nativeQuery=true,
+      value = "UPDATE ARTICLE \n" +
+              "SET STOCK = STOCK - :quantity \n" +
+              "WHERE ID_ARTICLE = :id")
+  void updateSubstractStock(@Param("id") Long id, @Param("quantity") Double quantity);
+
 }

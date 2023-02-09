@@ -11,8 +11,8 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 // pedido cabecera
-@Table(name = "ORDER")
-@Entity(name = "Order")
+@Table(name = "ORDERS")
+@Entity(name = "Orders")
 public class Order {
 
   @Id
@@ -20,6 +20,10 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqOrder")
   @SequenceGenerator(sequenceName = "SEQ_ORDER", allocationSize = 1, name = "seqOrder")
   private Long orderId;
+
+  @ManyToOne
+  @JoinColumn(name = "ID_CUSTOMER", nullable = false)
+  private Customer customer;
 
   //@NotNull(message = "El stock del producto es requerido")
   @Column(name = "TOTAL")
@@ -30,12 +34,11 @@ public class Order {
   @Column(name = "DESCRIPTION")
   private String description;
 
+  @Column(name = "ORDER_DATE")
+  private String orderDate;
+
   @Column(name = "STATUS", length = 1, nullable = false)
   private String status;
-
-  @ManyToOne
-  @JoinColumn(name = "ID_CUSTOMER", nullable = false)
-  private Customer customer;
 
   // Campo que se relaciona con ItemOrder
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -51,7 +54,7 @@ public class Order {
       if (isNull(items) || items.isEmpty() || isNull(itemOrder)) {
         setTotal(0.0);
       }
-      tmpTotal += itemOrder.getTotal();
+      tmpTotal += itemOrder.getSubTotal();
     }
 
     setTotal(tmpTotal);
@@ -82,6 +85,14 @@ public class Order {
     this.description = description;
   }
 
+  public String getOrderDate() {
+    return orderDate;
+  }
+
+  public void setOrderDate(String orderDate) {
+    this.orderDate = orderDate;
+  }
+
   public String getStatus() {
     return status;
   }
@@ -110,10 +121,11 @@ public class Order {
   public String toString() {
     return "Order{" +
         "orderId=" + orderId +
+        ", customer=" + customer +
         ", total=" + total +
         ", description='" + description + '\'' +
+        ", orderDate='" + orderDate + '\'' +
         ", status='" + status + '\'' +
-        ", customer=" + customer +
         ", items=" + items +
         '}';
   }
