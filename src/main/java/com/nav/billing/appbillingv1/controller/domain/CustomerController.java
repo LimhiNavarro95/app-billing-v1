@@ -1,4 +1,4 @@
-package com.nav.billing.appbillingv1.controller;
+package com.nav.billing.appbillingv1.controller.domain;
 
 import com.nav.billing.appbillingv1.entities.domain.Customer;
 import com.nav.billing.appbillingv1.service.domain.customer.CustomerService;
