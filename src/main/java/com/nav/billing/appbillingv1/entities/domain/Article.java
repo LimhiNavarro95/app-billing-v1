@@ -17,12 +17,12 @@ public class Article {
   private Long articleId;
 
   @NotNull(message = "La marca del producto es requerida")
-  @Size(min = 5, max = 32, message = "La marca debe tener como mínimo {min} y máximo {max} caracteres")
+  @Size(min = 1, max = 32, message = "La marca debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "TRADEMARK", length = 32, nullable = false)
   private String trademark;
 
   @NotNull(message = "La descripcion del producto es requerida")
-  @Size(min = 5, max = 128, message = "La descripcion debe tener como mínimo {min} y máximo {max} caracteres")
+  @Size(min = 2, max = 128, message = "La descripcion debe tener como mínimo {min} y máximo {max} caracteres")
   @Column(name = "DESCRIPTION", length = 128, nullable = false)
   private String description;
 
