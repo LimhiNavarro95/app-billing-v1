@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.nav.billing.appbillingv1.commons.GlobalConstants.ARTICLE_API;
@@ -38,6 +39,24 @@ public class ArticleController {
         return ResponseEntity.noContent().build();
       }
       return ResponseEntity.ok(optionalArticle.get());
+    } catch (Exception e) {
+      log.error(e.getMessage(),e);
+      return ResponseEntity.internalServerError().build();
+    }
+
+  }
+
+  @GetMapping("/by-description")
+  public ResponseEntity<?> findByLikeObject(@RequestParam String description){
+
+    try {
+      Article article = new Article();
+      article.setDescription(description);
+      List<Article> articles = articleService.findByLikeDescription(article);
+      if (articles.isEmpty()) {
+        return ResponseEntity.noContent().build();
+      }
+      return ResponseEntity.ok(articles);
     } catch (Exception e) {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();

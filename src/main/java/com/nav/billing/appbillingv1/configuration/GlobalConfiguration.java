@@ -19,7 +19,7 @@ public class GlobalConfiguration {
         System.out.println("addCorsMappings...");
         registry
             .addMapping("/**")
-            .allowedOrigins("http://localhost:4200") // "ip" de servicio angular
+            .allowedOrigins("*") // http://localhost:4200
             .allowedMethods("*")//GET", "POST
             .allowedHeaders("*")
             .exposedHeaders("*");

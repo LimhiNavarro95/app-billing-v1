@@ -95,4 +95,13 @@ public class ArticleServiceImpl implements ArticleService{
     }
   }
 
+  @Override
+  public List<Article> findByLikeDescription(Article article) throws ServiceException {
+    try {
+      return articleRepository.findByLikeDescription(BDUtil.getLike(article.getDescription()));
+    } catch (Exception e) {
+      throw new ServiceException(e);
+    }
+  }
+
 }
