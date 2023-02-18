@@ -10,9 +10,10 @@
 	</parent>
 	<groupId>com.nav.billing</groupId>
 	<artifactId>app-billing-v1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version> <!--Version de la app!-->
 	<name>app-billing-v1</name>
 	<description>Billing system service</description>
+	<packaging>war</packaging> <!--Tipo de empaquetamiento "war"  -->
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -28,6 +29,21 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!--Exclusiones de servidor de apache de la aplicacion de spring para el deploy-->
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-el</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-websocket</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -51,6 +67,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--servlet deployment-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<!--<version>3.1.0</version>-->
+		</dependency>
+
 	</dependencies>
 
 	<build>

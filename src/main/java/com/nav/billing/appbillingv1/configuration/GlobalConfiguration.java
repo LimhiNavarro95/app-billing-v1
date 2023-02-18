@@ -16,7 +16,11 @@ public class GlobalConfiguration {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
 
-        System.out.println("addCorsMappings...");
+        System.out.println(
+            "====================\n" +
+            " addCorsMappings...\n" +
+            "===================="
+        );
         registry
             .addMapping("/**")
             .allowedOrigins("*") // http://localhost:4200
