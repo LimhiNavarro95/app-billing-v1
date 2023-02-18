@@ -1,6 +1,11 @@
 package com.nav.billing.appbillingv1.controller.security;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,9 +24,9 @@ public class JWTUtils {
 
     UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
-    Collection<? extends GrantedAuthority> authorities=userPrincipal.getAuthorities();
+    Collection<? extends GrantedAuthority> authorities = userPrincipal.getAuthorities();
 
-    //System.out.println("Authorities -> "+ authorities);
+    System.out.println("Authorities -> " + authorities);
 
     Collection<?> authoritiesItems= authorities.stream()
         .map(GrantedAuthority::getAuthority)
@@ -32,7 +37,7 @@ public class JWTUtils {
         .setExpiration(new Date((new Date()).getTime() + Constants.TOKEN_EXPIRATION_TIME))
         .signWith(SignatureAlgorithm.HS512, Constants.SUPER_SECRET_KEY).compact();
 
-    System.out.println("tk1 -> "+ tk1);
+    System.out.println("tk1 -> " + tk1);
 
     String tk2 = Jwts.builder().setIssuedAt(new Date()).setIssuer(Constants.ISSUER_INFO)
         .setSubject(userPrincipal.getUsername())
@@ -40,7 +45,7 @@ public class JWTUtils {
         .claim(Constants.AUTHORITIES, authoritiesItems)
         .signWith(SignatureAlgorithm.HS512, Constants.SUPER_SECRET_KEY).compact();
 
-    System.out.println("tk2 -> "+ tk2);
+    System.out.println("tk2 -> " + tk2);
     return tk2;
   }
 
@@ -49,7 +54,7 @@ public class JWTUtils {
   }
 
   public boolean validateJwtToken(String authToken) {
-    System.out.println("authToken "+authToken);
+    System.out.println("authToken " + authToken);
     try {
       Jwts.parser().setSigningKey(Constants.SUPER_SECRET_KEY).parseClaimsJws(authToken);
       return true;

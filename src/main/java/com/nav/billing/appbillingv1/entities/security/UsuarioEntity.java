@@ -44,10 +44,4 @@ public class UsuarioEntity {
   )
   private Set<AuthorityEntity> authorities = new HashSet<>();
 
-  public UsuarioEntity(String usuario, String nombre, String clave){
-    this.usuario = usuario;
-    this.nombre = nombre;
-    this.clave = clave;
-  }
-
 }
