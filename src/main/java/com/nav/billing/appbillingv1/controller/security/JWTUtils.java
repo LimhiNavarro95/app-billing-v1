@@ -33,11 +33,11 @@ public class JWTUtils {
         .collect(Collectors.toList());
 
 
-    String tk1= Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+    /*String tk1= Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + Constants.TOKEN_EXPIRATION_TIME))
         .signWith(SignatureAlgorithm.HS512, Constants.SUPER_SECRET_KEY).compact();
 
-    System.out.println("tk1 -> " + tk1);
+    System.out.println("tk1 -> " + tk1);*/
 
     String tk2 = Jwts.builder().setIssuedAt(new Date()).setIssuer(Constants.ISSUER_INFO)
         .setSubject(userPrincipal.getUsername())

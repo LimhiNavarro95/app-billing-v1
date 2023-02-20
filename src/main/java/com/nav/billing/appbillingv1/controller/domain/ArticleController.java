@@ -32,7 +32,7 @@ public class ArticleController {
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<?> findById(@PathVariable Long id){
 
     try {
