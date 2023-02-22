@@ -1,9 +1,7 @@
 package com.nav.billing.appbillingv1.controller.process;
 
-import com.nav.billing.appbillingv1.entities.domain.Customer;
 import com.nav.billing.appbillingv1.entities.process.InsuranceCoverage;
 import com.nav.billing.appbillingv1.entities.process.InsurancePolicy;
-import com.nav.billing.appbillingv1.entities.process.WorkOrder;
 import com.nav.billing.appbillingv1.service.domain.customer.CustomerService;
 import com.nav.billing.appbillingv1.service.process.insurance.InsuranceCoverageService;
 import com.nav.billing.appbillingv1.service.process.insurance.InsurancePolicyService;
