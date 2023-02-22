@@ -6,6 +6,7 @@ import com.nav.billing.appbillingv1.service.process.insurance.InsuranceCoverageS
 import com.nav.billing.appbillingv1.service.process.insurance.InsurancePolicyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class InsuranceController {
   }
 
   @GetMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> findById(@PathVariable Long id){
     try {
       Optional<InsurancePolicy> optionalInsurancePolicy = insurancePolicyService.findById(id);
@@ -42,6 +44,7 @@ public class InsuranceController {
   }
 
   @GetMapping("/by-customer/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> findByCustomer(@PathVariable Long id){
 
     try {
@@ -59,6 +62,7 @@ public class InsuranceController {
   }
 
   @PostMapping
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> registerInsurancePolicy(@RequestBody InsurancePolicy insurancePolicy){
 
     try {

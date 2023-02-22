@@ -49,6 +49,7 @@ public class CustomerController {
   }
 
   @GetMapping("/rfc")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> findCustomerbyRfc(@RequestParam String rfc){
 
     try{
@@ -83,6 +84,7 @@ public class CustomerController {
   }*/
 
   @GetMapping("/all-customers")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> findAllCustomersPaged(@RequestParam Integer page, @RequestParam Integer size){
 
     try {
@@ -104,6 +106,7 @@ public class CustomerController {
   }
 
   @PostMapping
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> registerCustomer(@RequestBody @Validated Customer customer, BindingResult bindingResult){
 
     //el objeto binding result apoya para comprobar que el objeto tenga los atributos correctos
@@ -123,6 +126,7 @@ public class CustomerController {
   }
 
   @PutMapping("/{customerId}")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer){
 
     try{
@@ -143,6 +147,7 @@ public class CustomerController {
   }
 
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> deleteCustomer(@PathVariable Long id){
 
     try {

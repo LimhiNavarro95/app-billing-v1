@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.nav.billing.appbillingv1.util.WebUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class OrderController {
   }
 
   @GetMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> findById(@PathVariable Long id){
 
     try {
@@ -43,6 +45,7 @@ public class OrderController {
   }
 
   @PostMapping
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
   public ResponseEntity<?> save(@RequestBody  @Validated Order order, BindingResult result){
 
     if (result.hasErrors()) {
