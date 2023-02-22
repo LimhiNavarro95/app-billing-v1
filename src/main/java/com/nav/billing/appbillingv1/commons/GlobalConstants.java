@@ -9,6 +9,7 @@ public class GlobalConstants {
 
   // Process API's
   public static final String ORDER_API = "/v1/order";
+  public static final String INSURANCE_API = "v1/insurance";
 
 
 }
