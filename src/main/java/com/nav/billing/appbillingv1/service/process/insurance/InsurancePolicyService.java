@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface InsurancePolicyService extends GenericService<InsurancePolicy> {
 
-  //TODO arreglar esta consulta
-  //public List<InsurancePolicy> findInsurancePoliciesByCustomer(Long id) throws ServiceException;
+  List<InsurancePolicy> findInsurancePoliciesByCustomer(Long customerId) throws ServiceException;
 
 }

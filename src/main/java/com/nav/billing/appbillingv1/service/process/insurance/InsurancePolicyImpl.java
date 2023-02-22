@@ -1,8 +1,10 @@
 package com.nav.billing.appbillingv1.service.process.insurance;
 
+import com.nav.billing.appbillingv1.entities.domain.Customer;
 import com.nav.billing.appbillingv1.entities.process.InsurancePolicy;
 import com.nav.billing.appbillingv1.repository.process.InsurancePolicyRepository;
 import com.nav.billing.appbillingv1.service.exception.ServiceException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,15 +33,14 @@ public class InsurancePolicyImpl implements InsurancePolicyService{
     }
   }
 
-  /* TODO arreglar consulta
   @Override
-  public List<InsurancePolicy> findInsurancePoliciesByCustomer(Long id) throws ServiceException {
+  public List<InsurancePolicy> findInsurancePoliciesByCustomer(Long customerId) throws ServiceException {
     try {
-      return insurancePolicyRepository.findInsurancePoliciesByCustomer(id);
+      return insurancePolicyRepository.findInsurancePoliciesByCustomer(customerId);
     } catch (Exception e) {
       throw new ServiceException(e);
     }
-  }*/
+  }
 
   @Override
   public InsurancePolicy save(InsurancePolicy insurancePolicy) throws ServiceException {

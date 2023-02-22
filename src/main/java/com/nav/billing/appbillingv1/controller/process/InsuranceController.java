@@ -2,7 +2,6 @@ package com.nav.billing.appbillingv1.controller.process;
 
 import com.nav.billing.appbillingv1.entities.process.InsuranceCoverage;
 import com.nav.billing.appbillingv1.entities.process.InsurancePolicy;
-import com.nav.billing.appbillingv1.service.domain.customer.CustomerService;
 import com.nav.billing.appbillingv1.service.process.insurance.InsuranceCoverageService;
 import com.nav.billing.appbillingv1.service.process.insurance.InsurancePolicyService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +20,10 @@ public class InsuranceController {
 
   private final InsurancePolicyService insurancePolicyService;
   private final InsuranceCoverageService insuranceCoverageService;
-  private final CustomerService customerService;
 
-  public InsuranceController(InsurancePolicyService insurancePolicyService, InsuranceCoverageService insuranceCoverageService, CustomerService customerService) {
+  public InsuranceController(InsurancePolicyService insurancePolicyService, InsuranceCoverageService insuranceCoverageService) {
     this.insurancePolicyService = insurancePolicyService;
     this.insuranceCoverageService = insuranceCoverageService;
-    this.customerService = customerService;
   }
 
   @GetMapping("/{id}")
@@ -44,9 +41,9 @@ public class InsuranceController {
     }
   }
 
-  /* TODO arreglar este servicio
   @GetMapping("/by-customer/{id}")
   public ResponseEntity<?> findByCustomer(@PathVariable Long id){
+
     try {
       List<InsurancePolicy> insurancePolicies = insurancePolicyService.findInsurancePoliciesByCustomer(id);
       if (insurancePolicies.isEmpty()){
@@ -58,14 +55,13 @@ public class InsuranceController {
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();
     }
-  }*/
+
+  }
 
   @PostMapping
   public ResponseEntity<?> registerInsurancePolicy(@RequestBody InsurancePolicy insurancePolicy){
 
     try {
-
-      System.out.println("====================\n " + insurancePolicy.toString() + "\n===============\n");
 
       Optional<InsuranceCoverage> optionalInsuranceCoverage = insuranceCoverageService.findById(insurancePolicy.getInsuranceCoverage().getInsuranceCoverageId());
 
