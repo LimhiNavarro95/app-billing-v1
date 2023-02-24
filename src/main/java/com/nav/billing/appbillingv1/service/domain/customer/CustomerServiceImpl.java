@@ -37,6 +37,15 @@ public class CustomerServiceImpl implements CustomerService{
   }
 
   @Override
+  public List<Customer> findByLikeRFC(Customer customer) throws ServiceException {
+    try{
+      return customerRepository.findByLikeRFC(BDUtil.getLike(customer.getRfc()));
+    } catch (Exception e){
+      throw new ServiceException(e);
+    }
+  }
+
+  @Override
   public Page<Customer> findAllCustomersPaging(Pageable pageable) throws ServiceException {
     try {
       return customerRepository.findAllCustomers(pageable);

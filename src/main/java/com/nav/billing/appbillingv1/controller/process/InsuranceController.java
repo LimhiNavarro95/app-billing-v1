@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static com.nav.billing.appbillingv1.commons.GlobalConstants.HAS_ADMIN_ROLE;
 import static com.nav.billing.appbillingv1.commons.GlobalConstants.INSURANCE_API;
 
 @Slf4j
@@ -28,7 +29,7 @@ public class InsuranceController {
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findById(@PathVariable Long id){
     try {
       Optional<InsurancePolicy> optionalInsurancePolicy = insurancePolicyService.findById(id);
@@ -44,7 +45,7 @@ public class InsuranceController {
   }
 
   @GetMapping("/by-customer/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findByCustomer(@PathVariable Long id){
 
     try {
@@ -62,7 +63,7 @@ public class InsuranceController {
   }
 
   @PostMapping
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> registerInsurancePolicy(@RequestBody InsurancePolicy insurancePolicy){
 
     try {

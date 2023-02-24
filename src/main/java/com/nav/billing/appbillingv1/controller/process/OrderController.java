@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static com.nav.billing.appbillingv1.commons.GlobalConstants.HAS_ADMIN_ROLE;
 import static com.nav.billing.appbillingv1.commons.GlobalConstants.ORDER_API;
 import static java.util.Objects.isNull;
 
@@ -28,7 +29,7 @@ public class OrderController {
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findById(@PathVariable Long id){
 
     try {
@@ -45,7 +46,7 @@ public class OrderController {
   }
 
   @PostMapping
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> save(@RequestBody  @Validated Order order, BindingResult result){
 
     if (result.hasErrors()) {

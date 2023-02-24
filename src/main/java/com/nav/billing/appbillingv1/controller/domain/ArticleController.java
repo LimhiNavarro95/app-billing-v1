@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.nav.billing.appbillingv1.commons.GlobalConstants.ARTICLE_API;
+import static com.nav.billing.appbillingv1.commons.GlobalConstants.HAS_ADMIN_ROLE;
 import static java.util.Objects.isNull;
 
 @RestController
@@ -32,7 +33,7 @@ public class ArticleController {
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findById(@PathVariable Long id){
 
     try {
@@ -49,7 +50,7 @@ public class ArticleController {
   }
 
   @GetMapping("/by-description")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findByLikeObject(@RequestParam String description){
 
     try {
@@ -68,7 +69,7 @@ public class ArticleController {
   }
 
   @GetMapping("/all-articles")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findAllArticlesPaged(@RequestParam Integer page, @RequestParam Integer size){
 
     try {
@@ -92,7 +93,7 @@ public class ArticleController {
   }
 
   @GetMapping("/by-trademark")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findByLikeTrademarkPaged(@RequestParam String trademark,
                                                     @RequestParam Integer page, /*No. de pagina, ej: Pag.1, 2, ...5 */
                                                     @RequestParam Integer size /*De cuanto en cuanto, ej: 10,20,50 */){
@@ -114,7 +115,7 @@ public class ArticleController {
   }
 
   @PostMapping
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> registerArticle(@RequestBody @Validated Article article, BindingResult bindingResult){
 
     //el objeto binding result apoya para comprobar que el objeto tenga los atributos correctos
@@ -136,7 +137,7 @@ public class ArticleController {
   }
 
   @PutMapping("/{articleId}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> updateArticle(@PathVariable Long articleId, @RequestBody Article article, BindingResult bindingResult){
 
     //el objeto binding result apoya para comprobar que el objeto tenga los atributos correctos
@@ -161,7 +162,7 @@ public class ArticleController {
   }
 
   @DeleteMapping("/{articleId}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> deleteArticle(@PathVariable Long articleId){
 
     try {

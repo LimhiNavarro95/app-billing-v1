@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,6 +25,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
   @Query("select c from Customer c where c.rfc = :rfc and c.status = '1'")
   Optional<Customer> findCustomerByRfc(@Param("rfc") String rfc);
+
+  @Query("select c from Customer c where upper(c.rfc) like upper(:rfc) and c.status='1' order by c.customerId")
+  List<Customer> findByLikeRFC(@Param("rfc") String rfc);
 
   // -- Query's con paginacion
 

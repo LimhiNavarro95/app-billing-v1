@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.nav.billing.appbillingv1.commons.GlobalConstants.CUSTOMER_API;
+import static com.nav.billing.appbillingv1.commons.GlobalConstants.HAS_ADMIN_ROLE;
 import static java.util.Objects.isNull;
 
 @Slf4j
@@ -32,7 +33,7 @@ public class CustomerController {
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findById(@PathVariable Long id){
 
     try {
@@ -49,7 +50,7 @@ public class CustomerController {
   }
 
   @GetMapping("/rfc")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findCustomerbyRfc(@RequestParam String rfc){
 
     try{
@@ -58,6 +59,28 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
       }
       return ResponseEntity.ok(customer.get());
+    } catch (Exception e){
+      log.error(e.getMessage(),e);
+      return ResponseEntity.internalServerError().build();
+    }
+
+  }
+
+  @GetMapping("/by-rfc")
+  @PreAuthorize(HAS_ADMIN_ROLE)
+  public ResponseEntity<?> findCustomersByRfc(@RequestParam String rfc){
+
+    try{
+
+      Customer customer = new Customer();
+      customer.setRfc(rfc);
+
+      List<Customer> customers = customerService.findByLikeRFC(customer);
+
+      if (customers.isEmpty()){
+        return ResponseEntity.noContent().build();
+      }
+      return ResponseEntity.ok(customers);
     } catch (Exception e){
       log.error(e.getMessage(),e);
       return ResponseEntity.internalServerError().build();
@@ -84,7 +107,7 @@ public class CustomerController {
   }*/
 
   @GetMapping("/all-customers")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> findAllCustomersPaged(@RequestParam Integer page, @RequestParam Integer size){
 
     try {
@@ -106,7 +129,7 @@ public class CustomerController {
   }
 
   @PostMapping
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> registerCustomer(@RequestBody @Validated Customer customer, BindingResult bindingResult){
 
     //el objeto binding result apoya para comprobar que el objeto tenga los atributos correctos
@@ -126,7 +149,7 @@ public class CustomerController {
   }
 
   @PutMapping("/{customerId}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer){
 
     try{
@@ -147,7 +170,7 @@ public class CustomerController {
   }
 
   @DeleteMapping("/{id}")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+  @PreAuthorize(HAS_ADMIN_ROLE)
   public ResponseEntity<?> deleteCustomer(@PathVariable Long id){
 
     try {

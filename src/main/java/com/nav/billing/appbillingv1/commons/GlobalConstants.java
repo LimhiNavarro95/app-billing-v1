@@ -11,5 +11,8 @@ public class GlobalConstants {
   public static final String ORDER_API = "/v1/order";
   public static final String INSURANCE_API = "v1/insurance";
 
+  //Roles de permisos
+  public static final String HAS_ADMIN_ROLE = "hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')";
+
 
 }
