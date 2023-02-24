@@ -15,7 +15,7 @@ public interface InsurancePolicyRepository extends JpaRepository<InsurancePolicy
   @Query("select ins_pol from InsurancePolicy ins_pol where ins_pol.insurancePolicyId = :insurancePolicyId and ins_pol.status = '1'")
   Optional<InsurancePolicy> findInsurancePolicyById(@Param("insurancePolicyId") Long insurancePolicyId);
 
-  @Query("select ins_pol from InsurancePolicy ins_pol where ins_pol.customer.customerId = :customerId and ins_pol.status = '1'")
+  @Query("select ins_pol from InsurancePolicy ins_pol where ins_pol.customer.customerId = :customerId and ins_pol.status = '1' order by ins_pol.insurancePolicyId")
   List<InsurancePolicy> findInsurancePoliciesByCustomer(@Param("customerId") Long customerId);
 
 }
